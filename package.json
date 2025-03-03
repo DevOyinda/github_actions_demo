@@ -1,0 +1,15 @@
+{
+  "name": "github-actions-demo",
+  "version": "1.0.0",
+  "main": "node.js",
+  "scripts": {
+    "build": "echo 'Running build script' && exit 0",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
