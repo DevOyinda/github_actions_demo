@@ -15,6 +15,14 @@ This project demonstrates the setup of Continuous Integration and Continuous Dep
 - [GitHub Actions Workflows](#github-actions-workflows)
 - [Running Locally](#running-locally)
 
+## Project Overview/Objective
+This project aims to set up a Continuous Integration (CI) and Continuous Deployment (CD) pipeline using GitHub Actions for a Node.js application. The goal is to automate the processes of dependency installation, building, and testing, ensuring that code changes are continuously integrated and tested in multiple environments.
+
+The CI/CD pipeline will:
+
+Ensure that the application is built and tested against multiple Node.js versions (14.x and 16.x).
+Provide immediate feedback in the form of automated tests to ensure the quality of the code.
+Allow the project to scale with multiple environments without manual intervention.
 
 ## Technologies Used
 
