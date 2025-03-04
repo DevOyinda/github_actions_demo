@@ -1,4 +1,4 @@
-modules.exports = [
+module.exports = [
   {
     ignores: ["node_modules"], // Ignore node_modules
     languageOptions: {
