@@ -140,5 +140,79 @@ jobs:
         run: npm test
 ```
 
+- **Linters and Static Code Analysis**: 
+  - Configured ESLint to enforce code quality and styling rules.
+  - Static code analysis ensures that the code adheres to best practices by identifying issues such as unused variables and improper formatting.
+  - ESLint is configured to follow best practices, including enforcing double quotes for strings, disallowing unused variables, and warning on console usage.
+
+- **Matrix Builds**: 
+  - Implemented matrix builds to test the code across multiple environments.
+  - This allows the code to be validated against different versions of Node.js, ensuring compatibility and stability across environments.
+
+```bash
+# Name of the workflow
+name: Node.js CI
+
+# Specifies when the workflow should be triggered
+on:
+  # Triggers the workflow on 'push' events to the 'main' branch
+  push:
+    branches: [ main ]
+  # Also triggers the workflow on 'pull_request' events targeting the 'main' branch
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+
+# Defines the jobs that the workflow will execute
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Strategy for running the jobs - this section is useful for testing across multiple environments
+    strategy:
+      # A matrix build strategy to test against multiple versions of Node.js
+      matrix:
+        node-version: [18.x, 20.x]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - # Checks out the repository under $GITHUB_WORKSPACE, so the job can access it
+        uses: actions/checkout@v2
+
+      - # Sets up the specified version of Node.js
+        name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - # Caches Node Modules to speed up installation
+        name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - # Installs node modules as specified in the project's package-lock.json
+        run: npm ci
+
+      - # Runs ESLint to check for linting errors
+        name: Run Linter
+        run: npx eslint .
+
+      - # This command will only run if a build script is defined in the package.json
+        run: npm run build --if-present
+
+      - # Runs tests as defined in the project's package.json
+        run: npm test
+```
+created an _eslint.config.cjs file_
+
 ## PUSH THE CHANGES TO GITHUB
 SEE THE WORKFLOW ON ACTIONS TAB.
+
