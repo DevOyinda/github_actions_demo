@@ -10,6 +10,11 @@ on:
   pull_request:
     branches: [ main ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+
 # Defines the jobs that the workflow will execute
 jobs:
   build:
@@ -19,7 +24,7 @@ jobs:
     strategy:
       # A matrix build strategy to test against multiple versions of Node.js
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [16.x, 18.x, 20.x]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
