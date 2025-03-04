@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   {
     ignores: ["node_modules"],
     languageOptions: {
@@ -13,4 +13,6 @@ export default [
     }
   }
 ];
+
+
 
