@@ -1,6 +1,6 @@
 module.exports = [
   {
-    ignorePatterns: ["node_modules"],
+    ignores: ["node_modules"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module"
