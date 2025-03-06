@@ -76,8 +76,11 @@ jobs:
       - name: Set tag name
         id: set_tag_name
         run: |
-          TAG_NAME=${GITHUB_REF##*/}
+          TAG_NAME="v1.${{ github.run_number }}"  # Using github.run_number to ensure unique version
           echo "TAG_NAME=${TAG_NAME}" >> $GITHUB_ENV
+
+      - name: Debug GITHUB_REF
+        run: echo "GITHUB_REF=${GITHUB_REF}"
 
       - name: Create Release
         id: create_release
