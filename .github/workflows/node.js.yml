@@ -130,7 +130,7 @@ jobs:
             npm run build  # Build the project
             # Stop any existing process running on port 3000
             sudo lsof -t -i:3000 | xargs sudo kill -9 || echo "No process running on port 3000"
-            npm run start  # Start the application (adjust according to your app)
+            nohup npm run start > app.log 2>&1 &  # Start the application (adjust according to your app)
           EOF
         # SSH into the EC2 instance and run the deployment commands        
 
