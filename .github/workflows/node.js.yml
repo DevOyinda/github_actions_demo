@@ -94,5 +94,40 @@ jobs:
           draft: false
           prerelease: false
 
+  deploy_to_aws:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+    needs: create_release  # Ensures deployment happens after release is created
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        # Checks out your repository under $GITHUB_WORKSPACE.
+
+      - name: Set up AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+        # Configures AWS credentials from GitHub secrets.
+
+      - name: Set up SSH key for EC2
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        # Uses your EC2 private key stored in GitHub Secrets to authenticate.
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
+            # Your deployment script
+            cd /home/ec2-user/github_actions_demo
+            git pull origin main
+            npm ci  # Install dependencies
+            npm run build  # Build the project
+            npm run start  # Start the application (adjust according to your app)
+          EOF
+        # SSH into the EC2 instance and run the deployment commands        
+
 
 
