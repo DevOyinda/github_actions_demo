@@ -131,6 +131,10 @@ jobs:
             # Stop any existing process running on port 3000
             sudo lsof -t -i:3000 | xargs sudo kill -9 || echo "No process running on port 3000"
             nohup npm run start > app.log 2>&1 &  # Start the application (adjust according to your app)
+
+            # Check if the app is running
+            sleep 5
+            lsof -i :3000
           EOF
         # SSH into the EC2 instance and run the deployment commands        
 
