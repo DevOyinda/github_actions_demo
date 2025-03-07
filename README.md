@@ -1,7 +1,7 @@
 
 
 # GITHUB-ACTIONS-DEMO
-# CI/CD with Node.js, and GitHub Actions
+# CI/CD with Node.js, GitHub Actions, and AWS EC2.
 
 This project demonstrates the setup of Continuous Integration and Continuous Deployment (CI/CD) pipelines using **GitHub Actions**. The goal of this project is to implement a Continuous Integration (CI) and Continuous Deployment (CD) pipeline using GitHub Actions for a Node.js application. This ensures that the code is automatically tested, built, and deployed when changes are made to the main branch or pull requests are created.
 
