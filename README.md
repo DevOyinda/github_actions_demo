@@ -356,6 +356,24 @@ In my GitHub Actions workflow, I referenced the AWS credentials stored as secret
     aws-region: us-east-1
 ```
 
+## Caching Dependencies for Performance Optimization
+
+To speed up the CI/CD process, caching dependencies helps prevent redundant downloads and installations of the same packages across multiple workflow runs. This significantly improves build times.
+
+### Implementing Caching in GitHub Actions
+
+```yaml
+- name: Cache Node Modules
+  uses: actions/cache@v3
+  with:
+    path: ~/.npm
+    key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+    restore-keys: |
+      ${{ runner.os }}-node-
+```
+
+
+
 
 ## PUSH THE CHANGES TO GITHUB
 SEE THE WORKFLOW ON ACTIONS TAB.
